@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="Mobile Game Project"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
+boot_splash/bg_color=Color(0.189145, 0.12273, 0.175416, 1)
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=256
+window/size/viewport_height=456
+window/stretch/mode="viewport"
+window/handheld/orientation=1
 
 [dotnet]
 
@@ -21,3 +30,4 @@ project/assembly_name="Mobile Game Project"
 [rendering]
 
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.367136, 0.272927, 0.27118, 1)
