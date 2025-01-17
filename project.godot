@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Mobile Game Project"
-run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+run/main_scene="res://Scenes/Level1.tscn"
+config/features=PackedStringArray("4.3", "C#", "Mobile")
 boot_splash/bg_color=Color(0.189145, 0.12273, 0.175416, 1)
 config/icon="res://icon.svg"
 
@@ -27,7 +27,12 @@ window/handheld/orientation=1
 
 project/assembly_name="Mobile Game Project"
 
+[editor]
+
+naming/node_name_casing=1
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
-environment/defaults/default_clear_color=Color(0.367136, 0.272927, 0.27118, 1)
+environment/defaults/default_clear_color=Color(0.22275, 0.229743, 0.215748, 1)
