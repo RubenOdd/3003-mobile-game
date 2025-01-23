@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=4 uid="uid://c10hdu7wwt88k"]
+[gd_scene load_steps=3 format=4 uid="uid://c10hdu7wwt88k"]
 
 [ext_resource type="TileSet" uid="uid://btuj8faak2535" path="res://Art/MapTiles.tres" id="1_ij5ww"]
+[ext_resource type="Script" path="res://Scenes/fridayTasks.cs" id="2_dygad"]
 
 [node name="Level1" type="Node2D"]
 
@@ -17,3 +18,6 @@ tile_set = ExtResource("1_ij5ww")
 [node name="borders" type="TileMapLayer" parent="bg"]
 tile_map_data = PackedByteArray("AAADAPr/AgADAAAAAAACAPr/AgABAAEAAAABAPr/AgABAAEAAAAAAPr/AgABAAEAAAD///r/AgABAAEAAAD+//r/AgABAAEAAAD9//r/AgABAAEAAAD8/wUAAgACAAEAAAD8/wQAAgACAAEAAAD8/wMAAgACAAEAAAD8/wIAAgACAAEAAAD8/wEAAgACAAEAAAD8/wAAAgACAAEAAAD8////AgACAAEAAAD8//7/AgACAAEAAAD8//3/AgACAAEAAAD8//z/AgACAAEAAAD8//v/AgACAAEAAAD8/wYAAgACAAAAAAD8//r/AgABAAAAAAADAPv/AgADAAEAAAADAPz/AgADAAEAAAADAP3/AgADAAEAAAADAP7/AgADAAEAAAADAP//AgADAAEAAAADAAAAAgADAAEAAAADAAEAAgADAAEAAAADAAIAAgADAAEAAAADAAMAAgADAAEAAAADAAQAAgADAAEAAAADAAUAAgADAAEAAAADAAYAAgAAAAEAAAD9/wYAAgAAAAIAAAD+/wYAAgAAAAIAAAD//wYAAgAAAAIAAAAAAAYAAgAAAAIAAAABAAYAAgAAAAIAAAACAAYAAgAAAAIAAAA=")
 tile_set = ExtResource("1_ij5ww")
+
+[node name="node2d" type="Node2D" parent="."]
+script = ExtResource("2_dygad")
