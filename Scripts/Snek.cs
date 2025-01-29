@@ -6,17 +6,31 @@ namespace SnekGame
     public partial class Snek : CharacterBody2D
     {
         [Export] private float _speed = 100.0f;
+        Vector2 _direction = Vector2.Zero;
 
         public void GetInput()
         {
             Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-            Velocity = inputDirection * _speed;
+            Velocity = inputDirection.Normalized() * _speed;
+
+            // rotate the sprite to face the direction of movement
+            if (inputDirection != Vector2.Zero)
+            {
+                _direction = inputDirection;
+            }
         }
 
         public override void _PhysicsProcess(double delta)
         {
             GetInput();
             MoveAndCollide(Velocity * (float)delta);
+
+            if (_direction != Vector2.Zero)
+            {
+                // rotates the sprite to face wrong direction for some reason
+                // f it, gonna leave it to friday lesson
+                Rotation = _direction.Angle();
+            }
         }
     }
 }

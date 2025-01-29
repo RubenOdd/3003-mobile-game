@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://e3vvxrijgbrr"]
 
-[ext_resource type="Script" path="res://Scripts/ProtoMover.cs" id="1_fcfty"]
+[ext_resource type="Script" path="res://Scripts/Snek.cs" id="1_8gsjk"]
 [ext_resource type="Texture2D" uid="uid://bb5qfe7sd1dis" path="res://Art/Snake.png" id="1_reosf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nsbst"]
 
 [node name="PlayerSnek" type="CharacterBody2D"]
-script = ExtResource("1_fcfty")
-_speed = null
+script = ExtResource("1_8gsjk")
 
 [node name="SnekImage" type="Sprite2D" parent="."]
+rotation = 3.14159
 texture = ExtResource("1_reosf")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
