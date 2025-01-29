@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=4 uid="uid://c10hdu7wwt88k"]
+[gd_scene load_steps=6 format=4 uid="uid://c10hdu7wwt88k"]
 
 [ext_resource type="TileSet" uid="uid://btuj8faak2535" path="res://Art/MapTiles.tres" id="1_ij5ww"]
 [ext_resource type="Script" path="res://Scripts/FridayTasks.cs" id="2_jgot5"]
 [ext_resource type="PackedScene" uid="uid://e3vvxrijgbrr" path="res://Scenes/player_snek.tscn" id="3_ok4od"]
+[ext_resource type="Texture2D" uid="uid://da51feam6d2f5" path="res://Art/Collectables/apple.png" id="4_m2vrq"]
+[ext_resource type="Script" path="res://Scripts/Apple.cs" id="5_0f0vu"]
 
 [node name="Level1" type="Node2D"]
 
@@ -24,3 +26,8 @@ tile_set = ExtResource("1_ij5ww")
 script = ExtResource("2_jgot5")
 
 [node name="PlayerSnek" parent="." instance=ExtResource("3_ok4od")]
+
+[node name="apple" type="Sprite2D" parent="."]
+position = Vector2(-26, -113)
+texture = ExtResource("4_m2vrq")
+script = ExtResource("5_0f0vu")
