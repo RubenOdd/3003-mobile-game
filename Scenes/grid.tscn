@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjcttnqmpwvmw"]
+
+[ext_resource type="Script" path="res://Scripts/Grid.cs" id="1_irssf"]
+
+[node name="Grid" type="Node2D"]
+script = ExtResource("1_irssf")
+_width = 15
+_height = 13
+_cellSize = Vector2i(16, 16)

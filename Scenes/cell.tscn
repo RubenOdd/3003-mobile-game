@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddilinkjkttba"]
+
+[ext_resource type="Texture2D" uid="uid://dvekyagr7ve5x" path="res://Art/Grid.png" id="1_6j7rp"]
+[ext_resource type="Script" path="res://Scripts/Cell.cs" id="2_gyiky"]
+
+[node name="Cell" type="Sprite2D"]
+texture = ExtResource("1_6j7rp")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+script = ExtResource("2_gyiky")

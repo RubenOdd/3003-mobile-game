@@ -6,10 +6,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nsbst"]
 
 [node name="PlayerSnek" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_8gsjk")
 
 [node name="SnekImage" type="Sprite2D" parent="."]
-rotation = 3.14159
+rotation = 1.5708
 texture = ExtResource("1_reosf")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)

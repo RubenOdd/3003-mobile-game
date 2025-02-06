@@ -11,6 +11,15 @@ namespace SnekGame
         public void GetInput()
         {
             Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
+            if (Input.IsActionPressed("left") || Input.IsActionPressed("right"))
+            {
+                inputDirection.Y = 0;
+            }
+            else if (Input.IsActionPressed("up") || Input.IsActionPressed("down"))
+            {
+                inputDirection.X = 0;
+            }
+            
             Velocity = inputDirection.Normalized() * _speed;
 
             // rotate the sprite to face the direction of movement
