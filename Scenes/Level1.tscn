@@ -23,6 +23,7 @@ tile_map_data = PackedByteArray("AAD6//X/AgABAAAAAAD6/woAAgACAAAAAAAFAPX/AgADAAA
 tile_set = ExtResource("1_ij5ww")
 
 [node name="PlayerSnek" parent="." instance=ExtResource("3_ok4od")]
+position = Vector2(8, 8)
 
 [node name="apple" type="Sprite2D" parent="."]
 position = Vector2(-26, -113)

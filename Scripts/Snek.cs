@@ -6,26 +6,31 @@ namespace SnekGame
     public partial class Snek : CharacterBody2D
     {
         [Export] private float _speed = 100.0f;
+        [Export] private int _tileSize = 16;
         Vector2 _direction = Vector2.Zero;
+        bool moving = false;
 
         public void GetInput()
         {
-            Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-            if (Input.IsActionPressed("left") || Input.IsActionPressed("right"))
+            if (Input.IsActionJustPressed("left"))
             {
-                inputDirection.Y = 0;
+                _direction = Vector2.Left;
+                Move();
             }
-            else if (Input.IsActionPressed("up") || Input.IsActionPressed("down"))
+            else if (Input.IsActionJustPressed("right"))
             {
-                inputDirection.X = 0;
+                _direction = Vector2.Right;
+                Move();
             }
-            
-            Velocity = inputDirection.Normalized() * _speed;
-
-            // rotate the sprite to face the direction of movement
-            if (inputDirection != Vector2.Zero)
+            else if (Input.IsActionJustPressed("up"))
             {
-                _direction = inputDirection;
+                _direction = Vector2.Up;
+                Move();
+            }
+            else if (Input.IsActionJustPressed("down"))
+            {
+                _direction = Vector2.Down;
+                Move();
             }
         }
 
@@ -40,6 +45,25 @@ namespace SnekGame
                 // f it, gonna leave it to friday lesson
                 Rotation = _direction.Angle();
             }
+        }
+
+        private void Move()
+        {
+            if (_direction != Vector2.Zero)
+            {
+                if (moving == false)
+                {
+                    moving = true;
+                    Tween tween = CreateTween();
+                    tween.TweenProperty(this, "position", Position + _direction * _tileSize, 1 / _speed);
+                    MoveFalse();
+                }
+            }
+        }
+
+        private void MoveFalse()
+        {
+            moving = false;
         }
     }
 }

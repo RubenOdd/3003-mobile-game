@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://bb5qfe7sd1dis" path="res://Art/Snake.png" id="1_reosf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nsbst"]
+size = Vector2(15, 15)
 
 [node name="PlayerSnek" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_8gsjk")
 
 [node name="SnekImage" type="Sprite2D" parent="."]
+position = Vector2(4, 0)
 rotation = 1.5708
 texture = ExtResource("1_reosf")
 region_enabled = true
