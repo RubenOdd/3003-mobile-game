@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://c10hdu7wwt88k"]
+[gd_scene load_steps=4 format=4 uid="uid://c10hdu7wwt88k"]
 
+[ext_resource type="Script" path="res://Scripts/Level.cs" id="1_gs777"]
 [ext_resource type="TileSet" uid="uid://btuj8faak2535" path="res://Art/MapTiles.tres" id="1_ij5ww"]
-[ext_resource type="PackedScene" uid="uid://e3vvxrijgbrr" path="res://Scenes/player_snek.tscn" id="3_ok4od"]
-[ext_resource type="Texture2D" uid="uid://da51feam6d2f5" path="res://Art/Collectables/apple.png" id="4_m2vrq"]
-[ext_resource type="Script" path="res://Scripts/Apple.cs" id="5_0f0vu"]
 [ext_resource type="PackedScene" uid="uid://cjcttnqmpwvmw" path="res://Scenes/grid.tscn" id="5_bbxk6"]
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_gs777")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -22,16 +21,6 @@ tile_set = ExtResource("1_ij5ww")
 tile_map_data = PackedByteArray("AAD6//X/AgABAAAAAAD6/woAAgACAAAAAAAFAPX/AgADAAAAAAAFAAoAAgAAAAEAAAD7//X/AgABAAEAAAD8//X/AgABAAEAAAD9//X/AgABAAEAAAD+//X/AgABAAEAAAD///X/AgABAAEAAAAAAPX/AgABAAEAAAABAPX/AgABAAEAAAACAPX/AgABAAEAAAADAPX/AgABAAEAAAAEAPX/AgABAAEAAAD6//b/AgACAAEAAAD6//f/AgACAAEAAAD6//j/AgACAAEAAAD6//n/AgACAAEAAAD6//r/AgACAAEAAAD6//v/AgACAAEAAAD6//z/AgACAAEAAAD6//3/AgACAAEAAAD6//7/AgACAAEAAAD6////AgACAAEAAAD6/wAAAgACAAEAAAD6/wEAAgACAAEAAAD6/wIAAgACAAEAAAD6/wMAAgACAAEAAAD6/wQAAgACAAEAAAD6/wUAAgACAAEAAAD6/wYAAgACAAEAAAD6/wcAAgACAAEAAAD6/wgAAgACAAEAAAD6/wkAAgACAAEAAAAFAPb/AgADAAEAAAAFAPf/AgADAAEAAAAFAPj/AgADAAEAAAAFAPn/AgADAAEAAAAFAPr/AgADAAEAAAAFAPv/AgADAAEAAAAFAPz/AgADAAEAAAAFAP3/AgADAAEAAAAFAP7/AgADAAEAAAAFAP//AgADAAEAAAAFAAAAAgADAAEAAAAFAAEAAgADAAEAAAAFAAIAAgADAAEAAAAFAAMAAgADAAEAAAAFAAQAAgADAAEAAAAFAAUAAgADAAEAAAAFAAYAAgADAAEAAAAFAAcAAgADAAEAAAAFAAgAAgADAAEAAAAFAAkAAgADAAEAAAD7/woAAgAAAAIAAAD8/woAAgAAAAIAAAD9/woAAgAAAAIAAAD+/woAAgAAAAIAAAD//woAAgAAAAIAAAAAAAoAAgAAAAIAAAABAAoAAgAAAAIAAAACAAoAAgAAAAIAAAADAAoAAgAAAAIAAAAEAAoAAgAAAAIAAAA=")
 tile_set = ExtResource("1_ij5ww")
 
-[node name="PlayerSnek" parent="." instance=ExtResource("3_ok4od")]
-position = Vector2(8, 8)
-
-[node name="apple" type="Sprite2D" parent="."]
-position = Vector2(-26, -113)
-texture = ExtResource("4_m2vrq")
-script = ExtResource("5_0f0vu")
-_destination = Vector2(100, 0)
-
 [node name="Grid" parent="." instance=ExtResource("5_bbxk6")]
-position = Vector2(8, 8)
 _width = 12
 _height = 22
