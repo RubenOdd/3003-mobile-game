@@ -15,9 +15,15 @@ namespace SnakeGame
 		}
 
 		[Export] private float _speed = 1;
+        [Export] private Timer _moveTimer = null;
 
 		// TODO: Ei tällaisia kovakoodattuja koordinaatteja!
 		private Vector2I _currentPosition = new Vector2I(5, 5);
+        // TODO: Onkos tämä nyt hyvää designia?
+		// Liikkeen suunta.
+		private Direction _currentDirection = Direction.Up;
+		// Käyttäjän syötteen suunta.
+		private Direction _inputDirection = Direction.None;
 
 		public CellOccupierType Type
 		{
@@ -39,6 +45,17 @@ namespace SnakeGame
 			{
 				Position = worldPosition;
 			}
+
+            if (_moveTimer == null)
+			{
+				_moveTimer = GetNode<Timer>("MoveTimer");
+				if (_moveTimer == null)
+				{
+					GD.PrintErr("Move timer cannot be found!");
+				}
+			}
+            
+			_moveTimer?.Start();
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,8 +64,48 @@ namespace SnakeGame
 			Direction direction = ReadInput();
 			if (direction != Direction.None)
 			{
-				Move(direction);
+				_inputDirection = direction;
 			}
+
+            if (_moveTimer.IsComplete)
+			{
+				_inputDirection = ValidateInput(_inputDirection, _currentDirection);
+				// Ajastin kävi loppuun, liikuta matoa.
+				// Päivitä liikkeen suunta.
+				_currentDirection = _inputDirection;
+				// Nollataan käyttäjän syötettä kuvaava suunta
+				_inputDirection = Direction.None;
+				if (_currentDirection != Direction.None)
+				{
+					Move(_currentDirection);
+				}
+				// Parametrin nimeäminen auttaa luettavuutta merkittävästi
+				_moveTimer.Reset(autoStart: true);
+			}
+		}
+
+        private Direction ValidateInput(Direction inputDirection, Direction currentDirection)
+		{
+			switch (currentDirection)
+			{
+				case Direction.Up:
+				case Direction.Down:
+					if (inputDirection == Direction.Left || inputDirection == Direction.Right)
+					{
+						// Mato kääntyy 90 astetta, käännös on laillinen.
+						return inputDirection;
+					}
+					break;
+				case Direction.Left:
+				case Direction.Right:
+					if (inputDirection == Direction.Up || inputDirection == Direction.Down)
+					{
+						return inputDirection;
+					}
+					break;
+			}
+			// Jos käännös ei ollut sallittu, palauta edellinen liikkeen suunta.
+			return currentDirection;
 		}
 
 		private void Move(Direction direction)
