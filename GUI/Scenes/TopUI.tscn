@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://cglwy8k4bm0gu"]
+
+[ext_resource type="Script" path="res://Scripts/UI/TopUIControl.cs" id="1_mnl52"]
+[ext_resource type="Theme" uid="uid://y8v6n8o4xfwo" path="res://GUI/ui-theme.tres" id="1_ww5qv"]
+
+[node name="topUi" type="Control" node_paths=PackedStringArray("_scoreLabel", "_restartButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -356.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mnl52")
+_scoreLabel = NodePath("vBoxContainer/hBoxContainer/Score Label")
+_restartButton = NodePath("vBoxContainer/hBoxContainer/Restart Button")
+
+[node name="vBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Headline Label" type="Label" parent="vBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ww5qv")
+theme_override_font_sizes/font_size = 32
+text = "SNEK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hBoxContainer" type="HBoxContainer" parent="vBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Score Label" type="Label" parent="vBoxContainer/hBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ww5qv")
+text = "Pisteet: 999999"
+
+[node name="Restart Button" type="Button" parent="vBoxContainer/hBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ww5qv")
+action_mode = 0
+text = "Restart"

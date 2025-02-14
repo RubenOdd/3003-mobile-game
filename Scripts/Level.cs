@@ -1,4 +1,5 @@
 using Godot;
+using SnakeGame.UI;
 
 namespace SnakeGame
 {
@@ -15,6 +16,7 @@ namespace SnakeGame
 		[Export] private string _snakeScenePath = "res://Scenes/player_snek.tscn";
 		[Export] private string _appleScenePath = "res://Scenes/Apple.tscn";
         [Export] private string _nukeScenePath = "res://Scenes/Nuclear.tscn";
+        [Export] private TopUIControl _topUIControl = null;
 
 		private PackedScene _snakeScene = null;
 		private PackedScene _appleScene = null;
@@ -40,6 +42,10 @@ namespace SnakeGame
 					_score = value;
 				}
 
+				if (_topUIControl != null)
+				{
+					_topUIControl.SetScore(_score);
+				}
 			}
 		}
 

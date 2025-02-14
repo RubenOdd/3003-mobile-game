@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://nhukqvgpiekg"]
+
+[ext_resource type="Script" path="res://Scripts/UI/BottomUi.cs" id="1_hwyl5"]
+[ext_resource type="Theme" uid="uid://y8v6n8o4xfwo" path="res://GUI/ui-theme.tres" id="1_w3pa2"]
+[ext_resource type="PackedScene" uid="uid://vg0l5seutbcc" path="res://GUI/Scenes/ControlButton.tscn" id="2_0hdor"]
+[ext_resource type="Texture2D" uid="uid://bx47h2cfrn2jp" path="res://Art/UI/up.png" id="3_bqnxr"]
+[ext_resource type="Texture2D" uid="uid://dkakseoqy3jpi" path="res://Art/UI/down.png" id="4_jpg24"]
+[ext_resource type="Texture2D" uid="uid://ctl1oojgdvr7r" path="res://Art/UI/left.png" id="5_kq1yd"]
+[ext_resource type="Texture2D" uid="uid://dtpeasu0pngu6" path="res://Art/UI/right.png" id="6_smb5w"]
+
+[node name="bottomUi" type="Control" node_paths=PackedStringArray("_leftButton", "_rightButton", "_upButton", "_downButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hwyl5")
+_leftButton = NodePath("panel/LeftButton")
+_rightButton = NodePath("panel/RightButton")
+_upButton = NodePath("panel/UpButton")
+_downButton = NodePath("panel/DownButton")
+
+[node name="panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_w3pa2")
+
+[node name="UpButton" parent="panel" instance=ExtResource("2_0hdor")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -38.0
+offset_right = 8.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(8, 8)
+
+[node name="sprite2d" type="Sprite2D" parent="panel/UpButton"]
+position = Vector2(8, 8)
+texture = ExtResource("3_bqnxr")
+
+[node name="DownButton" parent="panel" instance=ExtResource("2_0hdor")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = 22.0
+offset_right = 8.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(8, 8)
+
+[node name="sprite2d" type="Sprite2D" parent="panel/DownButton"]
+position = Vector2(8, 8)
+texture = ExtResource("4_jpg24")
+
+[node name="LeftButton" parent="panel" instance=ExtResource("2_0hdor")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -8.0
+offset_right = -22.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(8, 8)
+
+[node name="sprite2d" type="Sprite2D" parent="panel/LeftButton"]
+position = Vector2(8, 8)
+texture = ExtResource("5_kq1yd")
+
+[node name="RightButton" parent="panel" instance=ExtResource("2_0hdor")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 22.0
+offset_top = -8.0
+offset_right = 38.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(8, 8)
+
+[node name="sprite2d" type="Sprite2D" parent="panel/RightButton"]
+position = Vector2(8, 8)
+texture = ExtResource("6_smb5w")

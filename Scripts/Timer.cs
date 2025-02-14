@@ -32,7 +32,7 @@ namespace SnakeGame
 					_timer = 0;
 					IsComplete = true;
 					Stop();
-					GD.Print("Ajastin kului loppuun.");
+					// GD.Print("Ajastin kului loppuun.");
 				}
 			}
 		}
