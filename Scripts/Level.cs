@@ -77,12 +77,7 @@ namespace SnakeGame
 		/// </summary>
 		public void ResetGame()
 		{
-			// Tuhoa edellinen mato, jos se on olemassa.
-			if (_snake != null)
-			{
-				_snake.QueueFree();
-				_snake = null;
-			}
+			DestroySnake();
 
 			// Luo mato
 			_snake = CreateSnake();
@@ -110,6 +105,19 @@ namespace SnakeGame
 
             return _snakeScene.Instantiate<Snek>();
 		}
+
+        public void DestroySnake()
+        {
+            if (_snake != null)
+            {
+                // Vapauta mato Gridistä
+                Vector2I snakePosition = _snake.GridPosition;
+				Grid.ReleaseCell(snakePosition);
+
+                _snake.QueueFree();
+                _snake = null;
+            }
+        }
 
 		public void ReplaceApple()
 		{

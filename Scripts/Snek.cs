@@ -24,6 +24,14 @@ namespace SnakeGame
 			get { return CellOccupierType.Snake; }
 		}
 
+        /// <summary>
+		/// Snake's position in Grid's coordinates
+		/// </summary>
+		public Vector2I GridPosition
+		{
+			get { return _currentPosition; }
+		}
+
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
@@ -48,6 +56,15 @@ namespace SnakeGame
 			Vector2I nextPosition = GetNextGridPosition(direction, _currentPosition);
 			if (Level.Current.Grid.GetWorldPosition(nextPosition, out Vector2 worldPosition))
 			{
+                // Liikkuminen sallittu.
+				// Tarkista, onko solussa jotain kerättävää.
+				Collectable collectable = Level.Current.Grid.GetCollectable(nextPosition);
+				if (collectable != null)
+				{
+					// Kerättävä esine löytyi. Kerää se.
+					collectable.Collect(this);
+				}
+
 				_currentPosition = nextPosition;
 				Position = worldPosition;
 				RotationDegrees = GetRotation(direction);
@@ -116,6 +133,10 @@ namespace SnakeGame
 			{
 				direction = Direction.Right;
 			}
+            else if (Input.IsActionJustPressed(Config.RestartAction))
+            {
+                Level.Current.ResetGame();
+            }
 
 			return direction;
 		}

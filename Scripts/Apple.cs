@@ -15,8 +15,9 @@ namespace SnakeGame
 
 			GD.Print("Apple collected!");
 
-			// Korvaa omena uudella eri sijainnissa
+			// Korvaa omena uudella eri sijainnissa, sekä nuclearin
 			Level.Current.ReplaceApple();
+            Level.Current.CreateNuke();
 		}
 	}
 }
