@@ -188,5 +188,20 @@ namespace SnakeGame
 			// Muussa tapauksessa palauta tyhjä viittaus.
 			return null;
 		}
+
+        /// <summary>
+        /// Checks if the gridPosition cellis free.
+        /// </summary>
+        /// <param name="gridPosition">Grid coordinate</param>
+        /// <returns>True if cell is free, otherwise False</returns>
+        public bool IsFree(Vector2I gridPosition)
+        {
+            if (IsInvalidCoordinate(gridPosition))
+            {
+                return false;
+            }
+
+            return _cells[gridPosition.X, gridPosition.Y].IsFree;
+        }
 	}
 }

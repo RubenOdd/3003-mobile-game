@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://e3vvxrijgbrr"]
+[gd_scene load_steps=7 format=3 uid="uid://e3vvxrijgbrr"]
 
 [ext_resource type="Script" path="res://Scripts/Snek.cs" id="1_8gsjk"]
-[ext_resource type="Texture2D" uid="uid://bb5qfe7sd1dis" path="res://Art/Snake.png" id="1_reosf"]
+[ext_resource type="PackedScene" uid="uid://dufq7yswhhw25" path="res://Scenes/Head.tscn" id="2_yjby3"]
 [ext_resource type="Script" path="res://Scripts/Timer.cs" id="3_i5xg1"]
+[ext_resource type="PackedScene" uid="uid://cwr2to2e3mw1g" path="res://Scenes/Body.tscn" id="3_lcoal"]
+[ext_resource type="PackedScene" uid="uid://c37m1wit553yo" path="res://Scenes/Tail.tscn" id="4_6rjko"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nsbst"]
 size = Vector2(11.5, 11.5)
@@ -11,12 +13,9 @@ size = Vector2(11.5, 11.5)
 motion_mode = 1
 script = ExtResource("1_8gsjk")
 _moveTimer = NodePath("Timer")
-
-[node name="SnekImage" type="Sprite2D" parent="."]
-position = Vector2(0, -3)
-texture = ExtResource("1_reosf")
-region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+_headScene = ExtResource("2_yjby3")
+_bodyScene = ExtResource("3_lcoal")
+_tailScene = ExtResource("4_6rjko")
 
 [node name="SnekCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_nsbst")

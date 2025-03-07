@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace SnakeGame
@@ -16,36 +17,31 @@ namespace SnakeGame
 
 		[Export] private float _speed = 1;
         [Export] private Timer _moveTimer = null;
+        
+        // references for snake parts scenes
+        [Export] private PackedScene _headScene = null;
+        [Export] private PackedScene _bodyScene = null;
+        [Export] private PackedScene _tailScene = null;
 
-		// TODO: Ei tällaisia kovakoodattuja koordinaatteja!
-		private Vector2I _currentPosition = new Vector2I(5, 5);
         // TODO: Onkos tämä nyt hyvää designia?
 		// Liikkeen suunta.
 		private Direction _currentDirection = Direction.Up;
 		// Käyttäjän syötteen suunta.
 		private Direction _inputDirection = Direction.None;
 
+        // Snake parts
+        private SnakePart _head = null;
+        private SnakePart _tail = null;
+        private List<SnakePart> _body = new List<SnakePart>();
+        private int _length = 3;
 		public CellOccupierType Type
 		{
 			get { return CellOccupierType.Snake; }
 		}
 
-        /// <summary>
-		/// Snake's position in Grid's coordinates
-		/// </summary>
-		public Vector2I GridPosition
-		{
-			get { return _currentPosition; }
-		}
-
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
-			if (Level.Current.Grid.GetWorldPosition(_currentPosition, out Vector2 worldPosition))
-			{
-				Position = worldPosition;
-			}
-
             if (_moveTimer == null)
 			{
 				_moveTimer = GetNode<Timer>("MoveTimer");
@@ -54,9 +50,12 @@ namespace SnakeGame
 					GD.PrintErr("Move timer cannot be found!");
 				}
 			}
-            
-			_moveTimer?.Start();
 		}
+
+        public void Start()
+        {
+            _moveTimer?.Start();
+        }
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(double delta)
@@ -84,6 +83,85 @@ namespace SnakeGame
 			}
 		}
 
+        public bool CreateSnake(Vector2I gridPosition)
+        {
+            // Add head
+            _head = AddBodyPart(SnakePart.SnakePartType.Head, gridPosition);
+            if (_head == null)
+            {
+                return false;
+            }
+
+            // loop the body
+            int currentLength = 1;
+            while (currentLength < _length - 1)
+            {
+                currentLength++;
+                gridPosition.Y++;
+                SnakePart body = AddBodyPart(SnakePart.SnakePartType.Body, gridPosition);
+
+                if (body == null)
+                {
+                    return false;
+                }
+
+                _body.Add(body);
+            }
+
+            // add tail
+            gridPosition.Y++;
+            _tail = AddBodyPart(SnakePart.SnakePartType.Tail, gridPosition);
+
+            return _tail != null;
+        }
+
+        private SnakePart AddBodyPart(SnakePart.SnakePartType type, Vector2I gridPosition)
+        {
+            if (!Level.Current.Grid.IsFree(gridPosition))
+            {
+                // Sends nothing if the snake part can not be created in that coordinate
+                return null;
+            }
+
+            SnakePart part = null;
+            switch(type)
+            {
+                case SnakePart.SnakePartType.Head:
+                    part = _headScene.Instantiate<SnakePart>();
+                    break;
+                case SnakePart.SnakePartType.Body:
+                    part = _bodyScene.Instantiate<SnakePart>();
+                    break;
+                case SnakePart.SnakePartType.Tail:
+                    part = _tailScene.Instantiate<SnakePart>();
+                    break;
+            }
+
+            if (part != null)
+            {
+                AddChild(part);
+                if(!part.SetPosition(gridPosition))
+                {
+                    GD.PrintErr("Occupying cell failed");
+                }
+            }
+            
+            return part;
+        }
+
+        /// <summary>
+        /// Releases cells occupied by snake
+        /// </summary>
+        public void ReleaseCells()
+        {
+            Level.Current.Grid.ReleaseCell(_head.GridPosition);
+            foreach(SnakePart bodyPart in _body)
+            {
+                Level.Current.Grid.ReleaseCell(bodyPart.GridPosition);
+            }
+            Level.Current.Grid.ReleaseCell(_tail.GridPosition);
+        }
+
         private Direction ValidateInput(Direction inputDirection, Direction currentDirection)
 		{
 			switch (currentDirection)
@@ -110,7 +188,7 @@ namespace SnakeGame
 
 		private void Move(Direction direction)
 		{
-			Vector2I nextPosition = GetNextGridPosition(direction, _currentPosition);
+			Vector2I nextPosition = GetNextGridPosition(direction, _head.GridPosition);
 			if (Level.Current.Grid.GetWorldPosition(nextPosition, out Vector2 worldPosition))
 			{
                 // Liikkuminen sallittu.
@@ -122,17 +200,25 @@ namespace SnakeGame
 					collectable.Collect(this);
 				}
 
-				_currentPosition = nextPosition;
-				Position = worldPosition;
-				RotationDegrees = GetRotation(direction);
+                MoveSnake(nextPosition);
 			}
 		}
 
-		private void Move(Direction direction, float delta)
-		{
-			Vector2 directionVector = GetDirectionVector(direction);
-			Translate(directionVector * _speed * delta);
-		}
+        private void MoveSnake(Vector2I nextPosition)
+        {
+            ReleaseCells();
+
+            _tail.SetPosition(_body[_body.Count - 1].GridPosition);
+
+            for (int i = _body.Count - 1; i > 0; --i)
+            {
+                _body[i].SetPosition(_body[i - 1].GridPosition);
+            }
+
+            _body[0].SetPosition(_head.GridPosition);
+
+            _head.SetPosition(nextPosition);
+        }
 
 		private Vector2I GetNextGridPosition(Direction direction, Vector2I currentPosition)
 		{

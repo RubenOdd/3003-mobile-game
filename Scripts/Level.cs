@@ -17,6 +17,7 @@ namespace SnakeGame
 		[Export] private string _appleScenePath = "res://Scenes/Apple.tscn";
         [Export] private string _nukeScenePath = "res://Scenes/Nuclear.tscn";
         [Export] private TopUIControl _topUIControl = null;
+        [Export] private Vector2I _startPos;
 
 		private PackedScene _snakeScene = null;
 		private PackedScene _appleScene = null;
@@ -88,6 +89,7 @@ namespace SnakeGame
 			// Luo mato
 			_snake = CreateSnake();
 			AddChild(_snake);
+            _snake.CreateSnake(_startPos);
 
 			// Nollaa pisteet
 			Score = 0;
@@ -95,6 +97,8 @@ namespace SnakeGame
 			// Luo omena
 			ReplaceApple();
             CreateNuke();
+
+            _snake.Start();
 		}
 
 		private Snek CreateSnake()
@@ -116,9 +120,11 @@ namespace SnakeGame
         {
             if (_snake != null)
             {
+                HighScore highScore = new HighScore();
+                highScore.AddScore("Player", Score);
+                
                 // Vapauta mato Gridistä
-                Vector2I snakePosition = _snake.GridPosition;
-				Grid.ReleaseCell(snakePosition);
+                _snake.ReleaseCells();
 
                 _snake.QueueFree();
                 _snake = null;

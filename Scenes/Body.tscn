@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwr2to2e3mw1g"]
+
+[ext_resource type="Texture2D" uid="uid://bb5qfe7sd1dis" path="res://Art/Snake.png" id="1_aprb6"]
+[ext_resource type="Script" path="res://Scripts/SnakePart.cs" id="2_5exhp"]
+
+[node name="body" type="Sprite2D"]
+texture = ExtResource("1_aprb6")
+region_enabled = true
+region_rect = Rect2(32, 16, 16, 16)
+script = ExtResource("2_5exhp")
+PartType = 2
